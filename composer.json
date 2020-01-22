@@ -1,0 +1,35 @@
+{
+  "name": "calcinai/oauth2-xero",
+  "description": "Xero OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+  "keywords": [
+    "oauth",
+    "oauth2",
+    "authorization",
+    "authentication",
+    "idp",
+    "identity",
+    "sso",
+    "single sign on",
+    "xero",
+    "xero api"
+  ],
+
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Michael Calcinai",
+      "email": "michael@calcin.ai"
+    }
+  ],
+  "require": {
+    "league/oauth2-client": "1.*|2.*",
+    "php": ">=5.6.0"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Calcinai\\OAuth2\\Client\\": "src/"
+    }
+  }
+}
