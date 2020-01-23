@@ -1,8 +1,8 @@
 # Xero Provider for OAuth 2.0 Client
-[![Latest Version](https://img.shields.io/github/release/calcinai/oauth2-xero.svg?style=flat-square)](https://github.com/calcinai/oauth2-xero/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/calcinai/oauth2-xero/master.svg?style=flat-square)](https://travis-ci.org/calcinai/oauth2-xero)
-[![Total Downloads](https://img.shields.io/packagist/dt/calcinai/oauth2-xero.svg?style=flat-square)](https://packagist.org/packages/calcinai/oauth2-xero)
+[![Latest Version](https://img.shields.io/github/release/calcinai/oauth2-xero.svg)](https://github.com/calcinai/oauth2-xero/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/calcinai/oauth2-xero/master.svg)](https://travis-ci.org/calcinai/oauth2-xero)
+[![Total Downloads](https://img.shields.io/packagist/dt/calcinai/oauth2-xero.svg)](https://packagist.org/packages/calcinai/oauth2-xero)
 
 This package provides Xero OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
 
