@@ -3,6 +3,8 @@ composer.phar
 /vendor/
 composer.lock
 
+demo.php
+
 ### JetBrains
 
 # User-specific stuff

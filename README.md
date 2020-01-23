@@ -19,9 +19,6 @@ Usage is the same as The League's OAuth client, using `\Calcinai\OAuth2\Client\P
 
 ### Authorization Code Flow
 ```php
-
-<?php
-
 session_start();
  
 $provider = new \Calcinai\OAuth2\Client\Provider\Xero([
@@ -31,48 +28,42 @@ $provider = new \Calcinai\OAuth2\Client\Provider\Xero([
 ]);
  
 if (!isset($_GET['code'])) {
- 
+
     // If we don't have an authorization code then get one
-    $authUrl = $provider->getAuthorizationUrl();
-    
+    $authUrl = $provider->getAuthorizationUrl([
+        'scope' => 'openid email profile accounting.transactions'
+    ]);
+
     $_SESSION['oauth2state'] = $provider->getState();
     header('Location: ' . $authUrl);
-    
     exit;
-  
+
 // Check given state against previously stored one to mitigate CSRF attack
 } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
- 
+
     unset($_SESSION['oauth2state']);
     exit('Invalid state');
- 
+
 } else {
+
     // Try to get an access token (using the authorization code grant)
     $token = $provider->getAccessToken('authorization_code', [
         'code' => $_GET['code']
     ]);
- 
-    // Optional: Now you have a token you can look up a users profile data
-    try {
- 
-        // We got an access token, let's now get the user's details
-        $organization = $provider->getResourceOwner($token);
- 
-        // Use these details to create a new profile
-        printf('Hello %s!', $organization->getName());
- 
-    } catch (Exception $e) {
- 
-        // Failed to get user details
-        exit('Oh dear...');
-    }
- 
-    // Use this to interact with an API on the users behalf
-    echo $token->getToken();
+
+
+    //If you added the openid/profile scopes you can access the authorizing user's identity.
+    $identity = $provider->getResourceOwner($token);
+    print_r($identity);
+
+    //Get the tenants that this user is authorized to access
+    $tenants = $provider->getTenants($token);
+    print_r($tenants);
 }
-
-
 ```
+
+You can then store the token and use it to make requests against the api to the desired tenants
+
 
 ## Scopes
  OAuth scopes, indicating which parts of the Xero organisation you'd like your app to be able to access. The complete list of scopes can be found [here](https://developer.xero.com/documentation/oauth2/scopes).
@@ -89,6 +80,14 @@ $provider = new \Calcinai\OAuth2\Client\Provider\Xero([
  ]);
  ```
  
+## Refreshing a token
+
+```php
+$newAccessToken = $provider->getAccessToken('refresh_token', [
+    'refresh_token' => $existingAccessToken->getRefreshToken()
+]);
+```
+
 
 ## Testing
 

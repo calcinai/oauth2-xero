@@ -23,7 +23,8 @@
   ],
   "require": {
     "league/oauth2-client": "1.*|2.*",
-    "php": ">=5.6.0"
+    "php": ">=5.6.0",
+    "firebase/php-jwt": "^5.0"
   },
   "require-dev": {
   },
