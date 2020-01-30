@@ -38,22 +38,32 @@ class Xero extends AbstractProvider
     }
 
     /**
+     * @param array $params
      * @return string
      */
-    public function getTenantsUrl()
+    public function getTenantsUrl(array $params = null)
     {
-        return 'https://api.xero.com/connections';
+        if ($params) {
+            $params = '?' . http_build_query($params);
+        }
+
+        return 'https://api.xero.com/connections' . $params;
     }
 
     /**
      * @param AccessToken $token
+     * @param array $params
      * @return XeroTenant[]
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      * @throws \Exception
      */
-    public function getTenants(AccessToken $token)
+    public function getTenants(AccessToken $token, array $params = null)
     {
-        $request = $this->getAuthenticatedRequest(self::METHOD_GET, $this->getTenantsUrl(), $token);
+        $request = $this->getAuthenticatedRequest(
+            self::METHOD_GET,
+            $this->getTenantsUrl($params),
+            $token
+        );
 
         $response = $this->getParsedResponse($request);
         $tenants = [];
@@ -64,7 +74,6 @@ class Xero extends AbstractProvider
 
         return $tenants;
     }
-
 
     /**
      * Returns the URL for requesting the resource owner's details.
