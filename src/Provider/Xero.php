@@ -15,6 +15,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Xero extends AbstractProvider
 {
+    const METHOD_DELETE = 'DELETE';
+
     /**
      * Returns the base URL for authorizing a client.
      *
@@ -74,6 +76,23 @@ class Xero extends AbstractProvider
 
         return $tenants;
     }
+
+    /**
+     * @param AccessToken $token
+     * @param $connectionId
+     * @return mixed
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     */
+    public function disconnect(AccessToken $token, $connectionId)
+    {
+        $url = sprintf('%s/%s', $this->getTenantsUrl(), $connectionId);
+
+        $request = $this->getAuthenticatedRequest(self::METHOD_DELETE, $url, $token);
+
+        $response = $this->getParsedResponse($request);
+        return $response;
+    }
+
 
     /**
      * Returns the URL for requesting the resource owner's details.
@@ -137,18 +156,7 @@ class Xero extends AbstractProvider
     {
         // This does nothing as we get the resource owner from the token itself, don't need to make a request to get it.
     }
-
-
-//    /**
-//     * @return array
-//     */
-//    protected function getDefaultHeaders()
-//    {
-//        return [
-//            'Content-Type' => 'application/json'
-//        ];
-//    }
-
+    
     /**
      * @param AccessToken|null $token
      * @return array
