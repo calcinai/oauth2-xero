@@ -8,6 +8,7 @@ use Calcinai\OAuth2\Client\XeroTenant;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Token\AccessTokenInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -53,13 +54,13 @@ class Xero extends AbstractProvider
     }
 
     /**
-     * @param AccessToken $token
+     * @param AccessTokenInterface $token
      * @param array $params
      * @return XeroTenant[]
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      * @throws \Exception
      */
-    public function getTenants(AccessToken $token, array $params = null)
+    public function getTenants(AccessTokenInterface $token, array $params = null)
     {
         $request = $this->getAuthenticatedRequest(
             self::METHOD_GET,
@@ -78,12 +79,12 @@ class Xero extends AbstractProvider
     }
 
     /**
-     * @param AccessToken $token
+     * @param AccessTokenInterface $token
      * @param $connectionId
      * @return mixed
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
-    public function disconnect(AccessToken $token, $connectionId)
+    public function disconnect(AccessTokenInterface $token, $connectionId)
     {
         $url = sprintf('%s/%s', $this->getTenantsUrl(), $connectionId);
 
@@ -158,7 +159,7 @@ class Xero extends AbstractProvider
     }
     
     /**
-     * @param AccessToken|null $token
+     * @param mixed|null $token
      * @return array
      */
     protected function getAuthorizationHeaders($token = null)
