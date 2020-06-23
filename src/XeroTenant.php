@@ -25,6 +25,11 @@ class XeroTenant
     public $tenantType;
 
     /**
+     * @var string
+     */
+    public $tenantName;
+
+    /**
      * @var \DateTime
      */
     public $createdDateUtc;
@@ -46,6 +51,7 @@ class XeroTenant
         $self->id = $data['id'];
         $self->tenantId = $data['tenantId'];
         $self->tenantType = $data['tenantType'];
+        $self->tenantName = $data['tenantName'];
         $self->createdDateUtc = new \DateTime($data['createdDateUtc']);
         $self->updatedDateUtc = $self->updatedDateUtc ? new \DateTime($data['updatedDateUtc']) : null;
 
