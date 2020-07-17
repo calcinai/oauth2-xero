@@ -17,6 +17,11 @@ class XeroTenant
     /**
      * @var string
      */
+    public $authEventId;
+
+    /**
+     * @var string
+     */
     public $tenantId;
 
     /**
@@ -49,6 +54,7 @@ class XeroTenant
         $self = new static();
 
         $self->id = $data['id'];
+        $self->authEventId = $data['authEventId'];
         $self->tenantId = $data['tenantId'];
         $self->tenantType = $data['tenantType'];
         $self->tenantName = $data['tenantName'];
