@@ -54,6 +54,14 @@ class Xero extends AbstractProvider
     }
 
     /**
+     * @return string
+     */
+    public function getRevokeUrl()
+    {
+        return 'https://identity.xero.com/connect/revocation';
+    }
+
+    /**
      * @param AccessTokenInterface $token
      * @param array $params
      * @return XeroTenant[]
@@ -94,6 +102,45 @@ class Xero extends AbstractProvider
         return $response;
     }
 
+    /**
+     * Revoke authorisation; remove all granted scopes and all tenants for the user
+     * holding this refresh token.
+     *
+     * @param string|AccessTokenInterface $refreshToken
+     * @return array|mixed|string
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @throws \Calcinai\OAuth2\Client\Provider\Exception\XeroProviderException
+     */
+    public function revoke($refreshToken)
+    {
+        if ($refreshToken instanceof AccessTokenInterface) {
+            // Support access token for consistency.
+            $refreshToken = $refreshToken->getRefreshToken();
+        }
+
+        // Enpoint uses Basic auth.
+        $headers = $this->getDefaultHeaders();
+        $headers['Authorization'] = 'Basic ' . base64_encode($this->clientId . ':' .$this->clientSecret);
+        $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+        // Xero supports only the refresh token for revoking at this time.
+        $body = [
+            'token' => $refreshToken,
+            // See https://tools.ietf.org/html/rfc7009#section-2.1
+            'token_type_hint' => 'refresh_token',
+        ];
+
+        // PSR-7 requires a stream for the body; Guzzle is happy accept a string.
+        $options = [
+            'headers' => $headers,
+            'body' => http_build_query($body),
+        ];
+
+        $request = $this->getRequest(static::METHOD_POST, $this->getRevokeUrl(), $options);
+
+        // Empty string for the response payload if the revoke does not fail.
+        return $this->getParsedResponse($request);
+    }
 
     /**
      * Returns the URL for requesting the resource owner's details.
