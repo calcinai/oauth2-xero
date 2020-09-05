@@ -80,6 +80,10 @@ $provider = new \Calcinai\OAuth2\Client\Provider\Xero([
  ]);
  ```
  
+Scopes are cumulative, meaning they will remain granted to the app for the user
+until authorisation is revoked. Every new authorisation flow can add new scopes
+that may not have been granted previously, and they will persist.
+ 
 ## Refreshing a token
 
 ```php
@@ -88,6 +92,20 @@ $newAccessToken = $provider->getAccessToken('refresh_token', [
 ]);
 ```
 
+## Revoking a token
+
+A token, or authorisation, for a user can be revoked completely.
+This can only be done through the API (a user cannot revoke their grants
+through the Xero UI, except by deleting their account).
+
+Revoking a token will result in all granted scopes, and all connected tenants
+being removed from the app for the authorising user.
+
+The refresh token is needed to revoke a grant:
+
+```php
+$provider->revoke($refreshToken);
+```
 
 ## Testing
 
