@@ -109,10 +109,10 @@ class Xero extends AbstractProvider
     }
 
     /**
-     * @param AccessTokenInterface $token
+     * @param AccessToken $token
      * @return XeroResourceOwner
      */
-    public function getResourceOwner(AccessTokenInterface $token)
+    public function getResourceOwner(AccessToken $token)
     {
         return XeroResourceOwner::fromJWT($token->getValues()['id_token']);
     }
