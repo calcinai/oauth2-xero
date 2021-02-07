@@ -43,7 +43,7 @@ class XeroResourceOwner
     public $sub;
 
     /**
-     * @var int details expirey time
+     * @var int details expiry time
      */
     public $exp;
 
@@ -70,7 +70,7 @@ class XeroResourceOwner
     {
         list($header, $body, $crypto) = explode('.', $token);
 
-        //This needs to be done manually as we don't get a signed JWT
+        // This needs to be done manually as we don't get a signed JWT
         $decoded = JWT::jsonDecode(JWT::urlsafeB64Decode($body));
 
         $self = new static();
@@ -87,20 +87,5 @@ class XeroResourceOwner
         $self->aud = $decoded->aud;
 
         return $self;
-    }
-
-    /**
-     * Provide camelCase access to the underlying properties.
-     *
-     * @param $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        $snakeCase = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $name));
-
-        if (property_exists($this, $snakeCase)) {
-            return $this->$snakeCase;
-        }
     }
 }

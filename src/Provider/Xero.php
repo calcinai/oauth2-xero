@@ -146,12 +146,11 @@ class Xero extends AbstractProvider
      * Returns the URL for requesting the resource owner's details.
      *
      * @param AccessToken $token
-     *
      * @return string
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        //This does not exist as it comes down in the JWT
+        // This does not exist as it comes down in the JWT
         return '';
     }
 
@@ -163,7 +162,6 @@ class Xero extends AbstractProvider
     {
         return XeroResourceOwner::fromJWT($token->getValues()['id_token']);
     }
-
 
     /**
      * Checks a provider response for errors.

@@ -59,7 +59,7 @@ class XeroTenant
         $self->tenantType = $data['tenantType'];
         $self->tenantName = $data['tenantName'];
         $self->createdDateUtc = new \DateTime($data['createdDateUtc']);
-        $self->updatedDateUtc = $self->updatedDateUtc ? new \DateTime($data['updatedDateUtc']) : null;
+        $self->updatedDateUtc = new \DateTime($data['updatedDateUtc']);
 
         return $self;
     }
