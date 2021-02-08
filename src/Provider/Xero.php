@@ -202,7 +202,7 @@ class Xero extends AbstractProvider
     {
         // This does nothing as we get the resource owner from the token itself, don't need to make a request to get it.
     }
-    
+
     /**
      * @param mixed|null $token
      * @return array
