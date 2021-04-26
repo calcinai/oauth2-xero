@@ -146,6 +146,17 @@ class Xero extends AbstractProvider
     }
 
     /**
+     * Returns the string that should be used to separate scopes when building
+     * the URL for requesting an access token.
+     *
+     * @return string Scope separator, defaults to ' '
+     */
+    protected function getScopeSeparator()
+    {
+        return ' ';
+    }
+
+    /**
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
