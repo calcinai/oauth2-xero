@@ -41,10 +41,10 @@ class Xero extends AbstractProvider
     }
 
     /**
-     * @param array $params
+     * @param null|array $params
      * @return string
      */
-    public function getTenantsUrl(array $params = null)
+    public function getTenantsUrl(?array $params = null)
     {
         if ($params) {
             $params = '?' . http_build_query($params);
@@ -55,12 +55,12 @@ class Xero extends AbstractProvider
 
     /**
      * @param AccessTokenInterface $token
-     * @param array $params
+     * @param null|array $params
      * @return XeroTenant[]
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      * @throws \Exception
      */
-    public function getTenants(AccessTokenInterface $token, array $params = null)
+    public function getTenants(AccessTokenInterface $token, ?array $params = null)
     {
         $request = $this->getAuthenticatedRequest(
             self::METHOD_GET,
