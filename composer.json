@@ -32,5 +32,6 @@
     "psr-4": {
       "Calcinai\\OAuth2\\Client\\": "src/"
     }
-  }
+  },
+  "minimum-stability": "dev"
 }
